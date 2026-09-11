@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Simple Calculator</title>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #74ebd5, #9face6);
+            font-family: Arial;
+            text-align: center;
+            padding-top: 60px;
+        }
+
+        h1 {
+            color: #ff4081;
+            font-size: 40px;
+        }
+
+        p {
+            background-color: white;
+            color: #333;
+            width: 400px;
+            margin: 15px auto;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 20px;
+            box-shadow: 0px 4px 10px gray;
+        }
+
+        #add {
+            color: #00a651;
+            border-left: 8px solid #00a651;
+        }
+
+        #sub {
+            color: #e91e63;
+            border-left: 8px solid #e91e63;
+        }
+
+        #mul {
+            color: #ff9800;
+            border-left: 8px solid #ff9800;
+        }
+
+        #div {
+            color: #673ab7;
+            border-left: 8px solid #673ab7;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>🧮 Simple Calculator</h1>
+
+    <p>Perform all Operations using JavaScript</p>
+
+    <p id="add"></p>
+    <p id="sub"></p>
+    <p id="mul"></p>
+    <p id="div"></p>
+
+    <script>
+
+        var number1 = 1000;
+        var number2 = 2500;
+
+        var add = number1 + number2;
+        var sub = number1 - number2;
+        var mul = number1 * number2;
+        var div = number1 / number2;
+
+        document.getElementById("add").innerHTML =
+            "The added value is: " + add;
+
+        document.getElementById("sub").innerHTML =
+            "The subtracted value is: " + sub;
+
+        document.getElementById("mul").innerHTML =
+            "The multiplied value is: " + mul;
+
+        document.getElementById("div").innerHTML =
+            "The divided value is: " + div;
+
+    </script>
+
+</body>
+
+</html>
