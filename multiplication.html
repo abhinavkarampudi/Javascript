@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Multiplication Using Functions</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            padding-top: 60px;
+        }
+
+        .box {
+            background-color: white;
+            width: 450px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px gray;
+        }
+
+        h1 {
+            color: #f15b4f;
+        }
+
+        input {
+            padding: 12px;
+            margin: 10px;
+            width: 150px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 12px 30px;
+            background-color: #f15b4f;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        #answer {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h1>Multiplication Using Functions</h1>
+
+        <p>Enter two numbers</p>
+
+        <input type="number" id="number1" placeholder="First Number">
+
+        <input type="number" id="number2" placeholder="Second Number">
+
+        <br><br>
+
+        <button onclick="multiply(
+            Number(document.getElementById('number1').value),
+            Number(document.getElementById('number2').value)
+        )">
+            Multiply
+        </button>
+
+        <div id="answer"></div>
+
+    </div>
+
+    <script>
+
+        function multiply(number1, number2 = 1) {
+
+            document.getElementById("answer").innerHTML =
+                "Answer: " + (number1 * number2);
+
+        }
+
+    </script>
+
+</body>
+
+</html>
