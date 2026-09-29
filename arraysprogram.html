@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Arrays</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <h2>JavaScript Arrays</h2>
+    <p id="demo"></p>
+    <p id="myfirstpop"></p>
+    <p id="mysecondpop"></p>
+    <p id="demo1"></p>
+    <script>
+        var cars = [
+            "Coding",
+            "Magic",
+            "Learn"
+        ];
+        document.getElementById("demo").innerHTML = cars[2];
+        var fruits = [
+            "Banana",
+            "Orange",
+            "Mango"
+        ]
+        document.getElementById("myfirstpop").innerHTML = fruits.join("*");
+        fruits.pop();
+        document.getElementById("mysecondpop").innerHTML = fruits;
+        function add(a, b) {
+            return a + b;
+        }
+        function average(a, b) {
+            return add(a, b) / 2;
+        }
+        let result = average(10, 20);
+        document.getElementById("demo1").innerHTML = result;
+    </script>
+
+</body>
+
+</html>
