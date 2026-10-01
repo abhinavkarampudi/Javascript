@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Object Data Structure and Array</title>
+</head>
+
+<body>
+
+    <h2>Object Data Structure and Array</h2>
+
+    <p id="object"></p>
+    <p id="array"></p>
+    <p id="join"></p>
+    <p id="pop"></p>
+    <p id="newarray"></p>
+
+    <script>
+
+        var student = {
+            name: "Abhinav",
+            age: 15,
+            favouriteColour: "Red"
+        };
+
+        var colours = ["Blue", "Pink", "Purple", "Green", "Yellow"];
+
+        document.getElementById("object").innerHTML =
+            "Name: " + student.name + "<br>" +
+            "Age: " + student.age + "<br>" +
+            "Favourite Colour: " + student.favouriteColour;
+
+        document.getElementById("array").innerHTML =
+            "First Colour: " + colours[0] + "<br>" +
+            "Third Colour: " + colours[2];
+
+        document.getElementById("join").innerHTML =
+            "Array using join(): " + colours.join(", ");
+
+        var removedColour = colours.pop();
+
+        document.getElementById("pop").innerHTML =
+            "Removed Colour: " + removedColour;
+
+        document.getElementById("newarray").innerHTML =
+            "Array after pop(): " + colours.join(", ");
+
+    </script>
+
+</body>
+
+</html>
