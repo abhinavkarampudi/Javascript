@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Game Profile</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <h1>My Game Profile</h1>
+    <button onclick="showProfile()">Show Profile</button>
+    <div>Name:<span id="name"></span></div>
+    <div>Score:<span id="score"></span></div>
+    <div>Top Score:<span id="record"></span></div>
+    <div>Rank:<span id="rank"></span></div>
+    <div>Greeting:<span id="greeting"></span></div>
+    <script>
+        function showProfile() {
+            let name = "Abhinav";
+            let myscore = 75;
+            highscore = null;
+
+            let rank;
+            if (myscore >= 80) {
+                rank = "gold";
+
+            }
+            else if (myscore >= 50) {
+                rank = "silver";
+            }
+            else {
+                rank = "bronze";
+            }
+
+            let istopscore = myscore == highscore;
+            document.getElementById("name").innerHTML = name;
+            document.getElementById("score").innerHTML = myscore + "out of" + highscore;
+            document.getElementById("record").innerHTML = isstopscore;
+
+        }
+    </script>
+</body>
+
+</html>
