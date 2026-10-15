@@ -34,6 +34,15 @@
                 </div>
             </div>
         </div>
+        <div class="card mb-4">
+            <div class="card-body">
+                <h3 class="card-title">Label every playcount</h3>
+                <button class="btn btn-primary mr-2" onclick="sortLeast()">Least played first</button>
+                <div id="countResult" class="box p-3 mt-3 rounded">
+
+                </div>
+            </div>
+        </div>
     </div>
     <script>
         var songs = ["Zoom", "Bounce", "Glow", "Rush", "Spark"];
@@ -50,7 +59,11 @@
             );
             document.getElementById("labelResult").innerHTML = l;
         }
-
+        function sortLeast() {
+            var l = songs.sort(function (a, b) { return a - b; }
+            );
+            document.getElementById("countResult").innerHTML = l;
+        }
     </script>
 </body>
 
