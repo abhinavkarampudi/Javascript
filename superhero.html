@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superhero Universe</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #080b1a;
+            color: white;
+            text-align: center;
+        }
+
+        header {
+            padding: 45px 20px;
+            background: linear-gradient(135deg, #171044, #091c40, #380d3f);
+            border-bottom: 3px solid #00d9ff;
+        }
+
+        header h1 {
+            font-size: 42px;
+            margin: 10px 0;
+            color: #00d9ff;
+            text-shadow: 0 0 18px #008cff;
+        }
+
+        header p {
+            color: #d6e4ff;
+            font-size: 16px;
+        }
+
+        .badge {
+            color: #ffdc55;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        button {
+            background: linear-gradient(90deg, #ff1744, #ff6d00);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.3s;
+            box-shadow: 0 0 15px #ff174466;
+        }
+
+        button:hover {
+            transform: scale(1.06);
+            box-shadow: 0 0 25px #ff1744;
+        }
+
+        .section-title {
+            margin-top: 35px;
+            color: #ffffff;
+            font-size: 28px;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            padding: 25px;
+            max-width: 1250px;
+            margin: auto;
+        }
+
+        .hero-card {
+            width: 220px;
+            background: #131a30;
+            border: 2px solid var(--hero-color);
+            border-radius: 16px;
+            overflow: hidden;
+            text-align: center;
+            transition: 0.3s;
+            box-shadow: 0 0 12px #00000066;
+            animation: appear 0.5s ease;
+        }
+
+        .hero-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 24px var(--hero-color);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 235px;
+            object-fit: cover;
+            object-position: top;
+            background: #202943;
+            display: block;
+        }
+
+        .hero-info {
+            padding: 15px;
+        }
+
+        .hero-name {
+            font-size: 21px;
+            font-weight: bold;
+            margin: 5px 0 12px;
+            color: var(--hero-color);
+        }
+
+        .hero-power {
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .hero-mission {
+            color: #b9c5e0;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: var(--hero-color);
+            color: #080b1a;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        #heroCards:empty::before {
+            content: "Your heroes are waiting for you...";
+            display: block;
+            color: #aab6d5;
+            font-size: 17px;
+            padding: 40px;
+        }
+
+        footer {
+            padding: 25px;
+            margin-top: 25px;
+            background: #11162a;
+            color: #8794b5;
+            font-size: 13px;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 500px) {
+            header h1 {
+                font-size: 30px;
+            }
+
+            .hero-card {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <p class="badge">⚡ THE ULTIMATE HERO COLLECTION ⚡</p>
+
+        <h1>🦸 SUPERHERO UNIVERSE</h1>
+
+        <p>Meet Earth's mightiest heroes and discover their incredible powers!</p>
+
+        <button onclick="showHeroes()">⚡ Assemble the Heroes</button>
+    </header>
+
+    <h2 class="section-title">MEET THE LEGENDS</h2>
+
+    <div class="card-container" id="heroCards"></div>
+
+    <footer>
+        SUPERHERO UNIVERSE © 2026 | Great power comes with great responsibility.
+    </footer>
+
+    <script>
+
+
+        class Superhero {
+
+            constructor(name, power, mission, image, color, universe) {
+                this.name = name;
+                this.power = power;
+                this.mission = mission;
+                this.image = image;
+                this.color = color;
+                this.universe = universe;
+            }
+
+            describeHero() {
+                return `
+                    <div class="hero-card"
+                         style="--hero-color: ${this.color}">
+
+                        <img
+                            class="hero-image"
+                            src="${this.image}"
+                            alt="${this.name}"
+                            loading="lazy"
+                            onerror="this.style.display='none'">
+
+                        <div class="hero-info">
+
+                            <span class="hero-tag">
+                                ${this.universe}
+                            </span>
+
+                            <p class="hero-name">${this.name}</p>
+
+                            <p class="hero-power">
+                                ⚡ ${this.power}
+                            </p>
+
+                            <p class="hero-mission">
+                                ${this.mission}
+                            </p>
+
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function showHeroes() {
+
+
+            let hero1 = new Superhero(
+                "Spider-Man",
+                "Spider-sense & agility",
+                "Protect New York City and help people in danger.",
+                "https://image.tmdb.org/t/p/w500/2Y1X7Z4m2j4w4c2g0y3v5s9.jpg",
+                "#ff354d",
+                "MARVEL"
+            );
+
+            let hero2 = new Superhero(
+                "Iron Man",
+                "Genius technology & armor",
+                "Use advanced technology to defend the world.",
+                "https://image.tmdb.org/t/p/w500/78lPtwv72eTNqFW9COBYI0dWDJa.jpg",
+                "#ffb52e",
+                "MARVEL"
+            );
+
+            let hero3 = new Superhero(
+                "Batman",
+                "Detective skills & gadgets",
+                "Fight crime and protect Gotham City.",
+                "https://image.tmdb.org/t/p/w500/1hRoyzDtpgMU7Dz4JF22RANzQO7.jpg",
+                "#8a9cff",
+                "DC COMICS"
+            );
+
+            let hero4 = new Superhero(
+                "Superman",
+                "Flight & super strength",
+                "Protect Earth and stand up for justice.",
+                "https://image.tmdb.org/t/p/w500/3bA6QF9mJ8s7K2D1V5x4z0c6N9.jpg",
+                "#35a7ff",
+                "DC COMICS"
+            );
+
+            let hero5 = new Superhero(
+                "Hulk",
+                "Incredible strength",
+                "Use his strength to protect people from danger.",
+                "https://image.tmdb.org/t/p/w500/qa6HCwP4Z15l3hpsASz3auugEW6.jpg",
+                "#65f05a",
+                "MARVEL"
+            );
+
+            let hero6 = new Superhero(
+                "Thor",
+                "Lightning & Mjolnir",
+                "Defend the Nine Realms against powerful threats.",
+                "https://image.tmdb.org/t/p/w500/prSfAi1xGrhLQNxVSUFh61xQ4Qy.jpg",
+                "#c18aff",
+                "MARVEL"
+            );
+
+            document.getElementById("heroCards").innerHTML =
+                hero1.describeHero() +
+                hero2.describeHero() +
+                hero3.describeHero() +
+                hero4.describeHero() +
+                hero5.describeHero() +
+                hero6.describeHero();
+        }
+
+    </script>
+
+</body>
+
+</html>
