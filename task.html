@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Task Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #eee9ff, #e3f2ff);
+            color: #242044;
+            min-height: 100vh;
+        }
+
+        .hero {
+            background: linear-gradient(120deg, #5426b8, #773de0, #3478ee);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 8px 25px #4a269533;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .hero p {
+            color: #e8e1ff;
+            margin-bottom: 0;
+        }
+
+        .dashboard-label {
+            letter-spacing: 2px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #e6d8ff;
+        }
+
+        .section-card {
+            background: white;
+            border: none;
+            border-radius: 18px;
+            box-shadow: 0 6px 22px #35205b12;
+            margin-bottom: 25px;
+            overflow: hidden;
+            transition: 0.25s;
+        }
+
+        .section-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 28px #35205b20;
+        }
+
+        .section-card .card-body {
+            padding: 25px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: #5126a8;
+            font-size: 22px;
+        }
+
+        .section-description {
+            color: #77738d;
+            font-size: 14px;
+        }
+
+        .icon-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 13px;
+            background: #eee7ff;
+            font-size: 23px;
+            margin-bottom: 12px;
+        }
+
+        .custom-btn {
+            border: none;
+            padding: 11px 17px;
+            border-radius: 9px;
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+            margin: 4px 4px 4px 0;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .custom-btn:hover {
+            filter: brightness(1.1);
+            transform: scale(1.03);
+        }
+
+        .purple {
+            background: #7138d4;
+        }
+
+        .blue {
+            background: #2673e8;
+        }
+
+        .pink {
+            background: #e34d91;
+        }
+
+        .orange {
+            background: #ee8a32;
+        }
+
+        .result-box {
+            background: #f7f5ff;
+            border: 1px solid #e7e0ff;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+            color: #393052;
+            min-height: 60px;
+            line-height: 1.9;
+            overflow-wrap: anywhere;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: white;
+            border: 1px solid #e9e4f8;
+            border-radius: 9px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+        }
+
+        .task-number {
+            color: #7138d4;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .minutes-badge {
+            background: #e5edff;
+            color: #285bc0;
+            border-radius: 20px;
+            padding: 5px 10px;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            color: #77738d;
+            font-size: 13px;
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 29px;
+            }
+
+            .section-card .card-body {
+                padding: 19px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="hero text-center">
+        <div class="dashboard-label">✦ PLAN • ORGANIZE • ACHIEVE ✦</div>
+        <h1 class="mt-3">📋 Daily Task Dashboard</h1>
+        <p>Organize your day and make every minute count!</p>
+        <div class="mt-3">
+            <span class="badge badge-light p-2">
+                JavaScript Array Methods
+            </span>
+        </div>
+    </header>
+    <main class="container py-4">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card section-card h-100">
+                    <div class="card-body">
+                        <div class="icon-box">📝</div>
+                        <h3 class="section-title">Daily Tasks</h3>
+                        <p class="section-description">
+                            Arrange your tasks alphabetically.
+                        </p>
+                        <button class="custom-btn purple" onclick="sortAZ()">
+                            A → Z
+                        </button>
+                        <button class="custom-btn blue" onclick="sortZA()">
+                            Z → A
+                        </button>
+                        <div id="taskResult" class="result-box"></div>
+                        <p class="hint">
+                            Methods used: sort() and reverse()
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card section-card h-100">
+                    <div class="card-body">
+                        <div class="icon-box">⏱️</div>
+                        <h3 class="section-title">Task Duration</h3>
+                        <p class="section-description">
+                            Find which tasks take the least or most time.
+                        </p>
+                        <button class="custom-btn blue" onclick="sortShortest()">
+                            Shortest First
+                        </button>
+                        <button class="custom-btn pink" onclick="sortLongest()">
+                            Longest First
+                        </button>
+                        <div id="timeResult" class="result-box"></div>
+                        <p class="hint">
+                            Method used: sort() with a compare function
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card section-card mt-4">
+            <div class="card-body">
+                <div class="icon-box">✨</div>
+                <h3 class="section-title">Label Every Task</h3>
+                <p class="section-description">
+                    Turn numbers into readable time labels.
+                </p>
+                <button class="custom-btn orange" onclick="addLabel()">
+                    Add Minutes Labels
+                </button>
+                <div id="labelResult" class="result-box">
+                    Click the button to label the task durations.
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        var tasks = [
+            "Homework",
+            "Breakfast",
+            "Exercise",
+            "Reading",
+            "Packing Bag"
+        ];
+        var minutes = [30, 15, 20, 25, 10];
+        var taskTimes = tasks.map(function (task, index) {
+            return {
+                name: task,
+                time: minutes[index]
+            };
+        });
+        function displayTasks(taskList, message) {
+            var output = "<strong>" + message + "</strong>";
+            taskList.forEach(function (task, index) {
+                output +=
+                    "<div class='task-item'>" +
+                    "<span><span class='task-number'>" +
+                    (index + 1) + ".</span>" +
+                    task.name + "</span>" +
+                    "<span class='minutes-badge'>" +
+                    task.time + " min</span>" +
+                    "</div>";
+            });
+            return output;
+        }
+        document.getElementById("taskResult").innerHTML =
+            displayTasks(taskTimes, "Your task list");
+        document.getElementById("timeResult").innerHTML =
+            displayTasks(taskTimes, "Your task durations");
+        function sortAZ() {
+            var sortedTasks = taskTimes.slice().sort(
+                function (a, b) {
+                    return a.name.localeCompare(b.name);
+                }
+            );
+            document.getElementById("taskResult").innerHTML =
+                displayTasks(sortedTasks, "Tasks sorted A to Z");
+        }
+        function sortZA() {
+            var sortedTasks = taskTimes.slice().sort(
+                function (a, b) {
+                    return a.name.localeCompare(b.name);
+                }
+            );
+            sortedTasks.reverse();
+
+            document.getElementById("taskResult").innerHTML =
+                displayTasks(sortedTasks, "Tasks sorted Z to A");
+        }
+        function sortShortest() {
+            var sortedTimes = taskTimes.slice().sort(
+                function (a, b) {
+                    return a.time - b.time;
+                }
+            );
+            document.getElementById("timeResult").innerHTML =
+                displayTasks(sortedTimes, "Shortest tasks first");
+        }
+        function sortLongest() {
+            var sortedTimes = taskTimes.slice().sort(
+                function (a, b) {
+                    return b.time - a.time;
+                }
+            );
+            document.getElementById("timeResult").innerHTML =
+                displayTasks(sortedTimes, "Longest tasks first");
+        }
+        function addLabel() {
+            var labelledMinutes = taskTimes.map(
+                function (task) {
+                    return task.name + " — " +
+                        task.time + " minutes";
+                }
+            );
+            document.getElementById("labelResult").innerHTML =
+                "<strong>Your labelled task times</strong><br>" +
+                labelledMinutes.join("<br>");
+        }
+    </script>
+</body>
+
+</html>
