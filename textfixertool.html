@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Text Fixer Tool</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fff3e0, #ffe0cc, #fff8ed);
+            font-family: Arial, sans-serif;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 950px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff8008, #ff4e00);
+            color: white;
+            padding: 35px 25px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(211, 84, 0, 0.2);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 38px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            margin-bottom: 0;
+            font-size: 16px;
+            color: #fff4e8;
+        }
+
+        .badge-custom {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 7px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 18px rgba(100, 60, 20, 0.08);
+            overflow: hidden;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(100, 60, 20, 0.14);
+        }
+
+        .card-body {
+            padding: 26px;
+        }
+
+        .card-title {
+            color: #c94c00;
+            font-weight: bold;
+            font-size: 23px;
+            margin-bottom: 12px;
+        }
+
+        .card-description {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .section-number {
+            display: inline-flex;
+            width: 35px;
+            height: 35px;
+            justify-content: center;
+            align-items: center;
+            background: #fff0df;
+            color: #d35400;
+            border-radius: 10px;
+            font-weight: bold;
+            margin-right: 9px;
+            font-size: 15px;
+        }
+
+        .btn-custom {
+            background: linear-gradient(135deg, #ff9800, #f4511e);
+            color: white;
+            border: none;
+            border-radius: 9px;
+            padding: 11px 20px;
+            font-weight: bold;
+            transition: 0.25s;
+        }
+
+        .btn-custom:hover {
+            background: linear-gradient(135deg, #ed8500, #d84315);
+            color: white;
+            transform: scale(1.03);
+            box-shadow: 0 5px 12px rgba(211, 84, 0, 0.2);
+        }
+
+        .box {
+            background: #fff8f0;
+            color: #713b1c;
+            border: 1px solid #ffdfc2;
+            border-left: 5px solid #ff8c42;
+            border-radius: 10px;
+            padding: 17px;
+            margin-top: 20px;
+            line-height: 1.8;
+            min-height: 60px;
+            overflow-wrap: anywhere;
+        }
+
+        .box:empty {
+            display: none;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px 0 25px;
+            color: #9a735a;
+            font-size: 13px;
+        }
+
+        .footer span {
+            color: #d35400;
+            font-weight: bold;
+        }
+
+        .divider {
+            height: 3px;
+            width: 55px;
+            background: #ff9b54;
+            border-radius: 10px;
+            margin: 12px 0 20px;
+        }
+
+        @media (max-width: 576px) {
+            .header {
+                padding: 28px 16px;
+            }
+
+            .header h1 {
+                font-size: 29px;
+            }
+
+            .card-body {
+                padding: 20px;
+            }
+
+            .card-title {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container py-4">
+
+        <!-- HEADER -->
+        <div class="header">
+            <div class="badge-custom">JAVASCRIPT MINI PROJECT</div>
+            <h1>🛠️ My Text Fixer Tool</h1>
+            <p>A simple toolkit to explore data types, convert values, fix words and catch errors.</p>
+        </div>
+
+        <!-- TOPIC 1 -->
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">
+                    <span class="section-number">01</span> What Type Is It?
+                </h3>
+
+                <div class="divider"></div>
+
+                <p class="card-description">
+                    Discover whether a value is a string, number or Boolean.
+                </p>
+
+                <button class="btn btn-custom" onclick="checkTypes()">
+                    Check Data Types →
+                </button>
+
+                <div id="typeResult" class="box">
+                    Your data type results will appear here.
+                </div>
+            </div>
+        </div>
+
+        <!-- TOPIC 2 -->
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">
+                    <span class="section-number">02</span> Convert Data Types
+                </h3>
+
+                <div class="divider"></div>
+
+                <p class="card-description">
+                    See how JavaScript changes text into numbers and numbers into text.
+                </p>
+
+                <button class="btn btn-custom" onclick="convertTypes()">
+                    Convert Values →
+                </button>
+
+                <div id="convertResult" class="box">
+                    Your conversion results will appear here.
+                </div>
+            </div>
+        </div>
+
+        <!-- TOPIC 3 -->
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">
+                    <span class="section-number">03</span> Fix My Sentence
+                </h3>
+
+                <div class="divider"></div>
+
+                <p class="card-description">
+                    Use the replace() method to replace a word in a sentence.
+                </p>
+
+                <div class="box" style="margin-top: 0;">
+                    <strong>Original sentence:</strong><br>
+                    I like maths because maths is fun.
+                </div>
+
+                <button class="btn btn-custom mt-3" onclick="replaceText()">
+                    Replace Word →
+                </button>
+
+                <div id="replaceResult" class="box">
+                    Your corrected sentence will appear here.
+                </div>
+            </div>
+        </div>
+
+        <!-- TOPIC 4 -->
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">
+                    <span class="section-number">04</span> Error Catcher
+                </h3>
+
+                <div class="divider"></div>
+
+                <p class="card-description">
+                    Test how try...catch handles an error without stopping the program.
+                </p>
+
+                <button class="btn btn-custom" onclick="catchError()">
+                    Test Error Catcher →
+                </button>
+
+                <div id="errorResult" class="box">
+                    Your error handling results will appear here.
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            Made with <span>HTML, CSS, Bootstrap & JavaScript</span><br>
+            Keep learning. Keep coding. 🚀
+        </div>
+
+    </div>
+
+    <script>
+        function checkTypes() {
+            var name = "Riya";
+            var score = 95;
+            var isReady = true;
+
+            document.getElementById("typeResult").innerHTML =
+                "<strong>📝 Name:</strong> " + typeof name + "<br>" +
+                "<strong>🔢 Score:</strong> " + typeof score + "<br>" +
+                "<strong>✅ Is Ready:</strong> " + typeof isReady;
+        }
+
+        function convertTypes() {
+            var marksText = "88";
+            var marksNumber = Number(marksText);
+            var age = 12;
+            var ageText = String(age);
+
+            document.getElementById("convertResult").innerHTML =
+                "<strong>Text to Number:</strong><br>" +
+                '"88" as a number: ' + marksNumber + "<br>" +
+                "Type: " + typeof marksNumber + "<br><br>" +
+                "<strong>Number to Text:</strong><br>" +
+                "12 as text: " + ageText + "<br>" +
+                "Type: " + typeof ageText;
+        }
+
+        function replaceText() {
+            var sentence = "I like maths because maths is fun.";
+            var newSentence = sentence.replace("maths", "coding");
+
+            document.getElementById("replaceResult").innerHTML =
+                "<strong>Original:</strong><br>" + sentence +
+                "<br><br><strong>Fixed:</strong><br>" + newSentence;
+        }
+
+        function catchError() {
+            try {
+                var result = totalMarks + 10;
+
+                document.getElementById("errorResult").innerHTML =
+                    "<strong>Result:</strong> " + result;
+            }
+            catch (error) {
+                document.getElementById("errorResult").innerHTML =
+                    "<strong>⚠️ Error successfully caught!</strong><br>" +
+                    "Message: " + error.message;
+            }
+        }
+    </script>
+
+</body>
+
+</html>
