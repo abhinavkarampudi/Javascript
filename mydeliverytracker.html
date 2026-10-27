@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>My Delivery Tracker</title>
+</head>
+
+<body>
+    <h1>My Delivery Tracker</h1>
+    <button onclick="saveOrder()">Save Order</button>
+    <button onclick="startDelivery()">Start Delivery</button>
+    <div>
+        Json Text:<span id="json-text"></span>
+    </div>
+    <div>
+        Loaded Item:<span id="loaded-item"></span>
+    </div>
+    <div>
+        Loaded Prize:<span id="loaded-prize"></span>
+    </div>
+    <div>
+        Status:<span id="status"></span>
+    </div>
+    <div>
+        Result:<span id="result"></span>
+    </div>
+    <script>
+        let order = {
+            item: "Pizza",
+            prize: 5,
+            shop: "My snack shop",
+        };
+        function saveOrder() {
+            let jsontext = JSON.stringify(order);
+            let loadedorder = JSON.parse(jsontext);
+            document.getElementById("json-text").innerHTML = jsontext;
+            document.getElementById("loaded-item").innerHTML = loadedorder;
+            document.getElementById("loaded-prize").innerHTML = loadedorder.prize;
+
+        }
+        function startDelivery() {
+
+        }
+    </script>
+</body>
+
+</html>
