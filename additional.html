@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartSpend — Personal Finance</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0b0912;
+            --surface: #15121f;
+            --surface2: #201a2e;
+            --text: #f7f4ff;
+            --muted: #a39bb7;
+            --border: rgba(255, 255, 255, .09);
+            --purple: #a78bfa;
+            --pink: #e879f9;
+            --green: #6ee7b7;
+            --red: #fda4af;
+            --input: #100d19;
+            --shadow: 0 18px 55px rgba(0, 0, 0, .12);
+        }
+
+        body.light {
+            --bg: #f5f3fa;
+            --surface: #ffffff;
+            --surface2: #f0ecf8;
+            --text: #211832;
+            --muted: #756c86;
+            --border: rgba(43, 28, 70, .12);
+            --purple: #7953d4;
+            --pink: #bd48ce;
+            --green: #087e59;
+            --red: #c53553;
+            --input: #faf9fd;
+            --shadow: 0 18px 55px rgba(50, 30, 80, .07);
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            transition: background .2s, color .2s;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand {
+            font-family: 'Space Grotesk', sans-serif
+        }
+
+        button,
+        input,
+        select {
+            font: inherit
+        }
+
+        button {
+            cursor: pointer
+        }
+
+        .container-main {
+            width: min(1150px, 92%);
+            margin: auto
+        }
+
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -1px
+        }
+
+        .brand span {
+            color: var(--purple)
+        }
+
+        .logo {
+            display: inline-grid;
+            place-items: center;
+            width: 39px;
+            height: 39px;
+            margin-right: 8px;
+            border-radius: 13px;
+            background: linear-gradient(135deg, #a78bfa, #e879f9);
+            color: #190e28;
+            font-size: 22px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .icon-btn,
+        .btn-soft {
+            color: var(--text);
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px 13px;
+        }
+
+        .icon-btn:hover,
+        .btn-soft:hover {
+            filter: brightness(1.12)
+        }
+
+        .hero {
+            padding: 45px 0 28px;
+            background: radial-gradient(ellipse at 80% 0%, rgba(124, 58, 237, .12), transparent 45%);
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 7px 12px;
+            border: 1px solid rgba(167, 139, 250, .3);
+            border-radius: 30px;
+            background: rgba(167, 139, 250, .08);
+            color: var(--purple);
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: clamp(34px, 6vw, 61px);
+            letter-spacing: -2.8px;
+            line-height: 1.07;
+            margin: 18px 0 12px;
+            font-weight: 700;
+        }
+
+        .gradient {
+            background: linear-gradient(100deg, #a78bfa, #e879f9);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        .small-label {
+            font-size: 11px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1.1px;
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 21px;
+            padding: 23px;
+            box-shadow: var(--shadow);
+            height: 100%;
+        }
+
+        .panel-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 10px 0 6px
+        }
+
+        .section {
+            padding: 16px 0
+        }
+
+        .metric {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            padding: 18px;
+            border-radius: 16px;
+            height: 100%;
+        }
+
+        .big-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(25px, 3vw, 36px);
+            font-weight: 700;
+            letter-spacing: -1px;
+            overflow-wrap: anywhere;
+            margin-top: 7px;
+        }
+
+        .positive {
+            color: var(--green)
+        }
+
+        .negative {
+            color: var(--red)
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px 13px;
+            color: var(--text) !important;
+            background: var(--input) !important;
+            border: 1px solid var(--border) !important;
+            border-radius: 11px !important;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: var(--purple) !important;
+            box-shadow: 0 0 0 3px rgba(167, 139, 250, .13) !important;
+        }
+
+        input::placeholder {
+            color: var(--muted)
+        }
+
+        select option {
+            background: var(--surface);
+            color: var(--text)
+        }
+
+        label {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 7px
+        }
+
+        .btn-main {
+            background: linear-gradient(100deg, #c4b5fd, #e879f9);
+            color: #190e28;
+            border: 0;
+            border-radius: 11px;
+            padding: 12px 16px;
+            font-weight: 700;
+            transition: .2s;
+        }
+
+        .btn-main:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.06)
+        }
+
+        .btn-soft {
+            font-size: 13px
+        }
+
+        .btn-danger-soft {
+            color: var(--red);
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 7px 10px;
+            font-size: 12px;
+        }
+
+        .progress-track {
+            height: 8px;
+            width: 100%;
+            background: var(--surface2);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #a78bfa, #e879f9);
+            border-radius: 20px;
+            transition: width .3s;
+        }
+
+        .tip {
+            background: rgba(167, 139, 250, .08);
+            border-left: 3px solid var(--purple);
+            border-radius: 0 12px 12px 0;
+            padding: 14px;
+            color: var(--text);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .entry {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .entry:last-child {
+            border-bottom: 0
+        }
+
+        .entry-title {
+            font-size: 14px;
+            font-weight: 700;
+            overflow-wrap: anywhere
+        }
+
+        .entry-meta {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 4px
+        }
+
+        .entry-right {
+            text-align: right;
+            flex-shrink: 0
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 30px;
+            background: var(--surface2);
+            font-size: 11px;
+            color: var(--purple);
+        }
+
+        .empty {
+            padding: 22px 0;
+            text-align: center;
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        .goal-item {
+            padding: 15px;
+            margin-top: 12px;
+            border: 1px solid var(--border);
+            background: var(--surface2);
+            border-radius: 15px;
+        }
+
+        .goal-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px
+        }
+
+        .summary-box {
+            padding: 15px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .auth-wrap {
+            min-height: calc(100vh - 81px);
+            display: grid;
+            place-items: center;
+            padding: 38px 0;
+        }
+
+        .auth-card {
+            width: min(460px, 100%);
+            padding: 30px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .auth-title {
+            font-size: 35px;
+            letter-spacing: -1.5px;
+            font-weight: 700
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 5px;
+            padding: 5px;
+            background: var(--surface2);
+            border-radius: 12px;
+            margin: 22px 0;
+        }
+
+        .auth-tabs button {
+            flex: 1;
+            border: 0;
+            border-radius: 9px;
+            padding: 10px;
+            background: transparent;
+            color: var(--muted);
+        }
+
+        .auth-tabs button.active {
+            background: var(--surface);
+            color: var(--text);
+            font-weight: 700
+        }
+
+        #notice {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 200;
+            display: none;
+            background: var(--surface2);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 13px 18px;
+            max-width: 90%;
+            box-shadow: var(--shadow);
+        }
+
+        footer {
+            padding: 26px 0;
+            margin-top: 35px;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .hidden {
+            display: none !important
+        }
+
+        @media(max-width:600px) {
+            .container-main {
+                width: 94%
+            }
+
+            .panel {
+                padding: 18px
+            }
+
+            .hero {
+                padding-top: 32px
+            }
+
+            .hero h1 {
+                letter-spacing: -1.8px
+            }
+
+            .brand {
+                font-size: 20px
+            }
+
+            .header-actions .btn-soft {
+                padding: 9px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container-main header-inner">
+            <div class="brand"><span class="logo">↗</span>Smart<span>Spend</span></div>
+            <div class="header-actions">
+                <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle theme">☀️
+                    Light</button>
+                <button class="btn-soft hidden" id="logoutBtn" onclick="logout()">Log out ↗</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ACCOUNT LOGIN / SIGNUP -->
+    <section id="authScreen" class="container-main auth-wrap">
+        <div class="auth-card">
+            <span class="eyebrow">YOUR MONEY. YOUR PLAN.</span>
+            <h1 class="auth-title mt-4">Welcome to<br><span class="gradient">your next level.</span></h1>
+            <p class="muted small mt-3">Create an account or sign in to manage your personal money dashboard.</p>
+
+            <div class="auth-tabs">
+                <button id="loginTab" class="active" onclick="setAuthMode('login')">Log in</button>
+                <button id="signupTab" onclick="setAuthMode('signup')">Create account</button>
+            </div>
+
+            <form id="authForm">
+                <div id="nameField" class="mb-3 hidden">
+                    <label for="fullName">Your name</label>
+                    <input id="fullName" maxlength="60" placeholder="Enter your name" autocomplete="name">
+                </div>
+                <div class="mb-3">
+                    <label for="email">Email address</label>
+                    <input id="email" type="email" required maxlength="120" placeholder="you@example.com"
+                        autocomplete="username">
+                </div>
+                <div class="mb-3">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" required minlength="8" maxlength="100"
+                        placeholder="At least 8 characters" autocomplete="current-password">
+                </div>
+                <div id="confirmField" class="mb-3 hidden">
+                    <label for="confirmPassword">Confirm password</label>
+                    <input id="confirmPassword" type="password" minlength="8" maxlength="100"
+                        placeholder="Enter your password again" autocomplete="new-password">
+                </div>
+                <button id="authSubmit" class="btn-main w-100 mt-2" type="submit">Log in to SmartSpend →</button>
+            </form>
+
+            <p class="muted mt-4 mb-0" style="font-size:11px;line-height:1.7">
+                Demo account system: accounts are stored only in this browser. Do not use a real password or sensitive
+                financial information.
+            </p>
+        </div>
+    </section>
+
+    <!-- MAIN APPLICATION -->
+    <main id="appScreen" class="container-main hidden">
+        <section class="hero">
+            <span class="eyebrow">YOUR PERSONAL FINANCE SPACE</span>
+            <h1 id="welcomeTitle">Make your money<br>work <span class="gradient">smarter.</span></h1>
+            <p class="muted" style="max-width:620px;line-height:1.8">
+                Track your spending, plan your budget, build savings, and understand your money — all in one place.
+            </p>
+        </section>
+
+        <!-- DASHBOARD -->
+        <section class="section pt-0">
+            <div class="row g-3">
+                <div class="col-md-3 col-6">
+                    <div class="metric">
+                        <div class="small-label">Monthly income</div>
+                        <div class="big-number" id="incomeDisplay">AED 0</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="metric">
+                        <div class="small-label">Expenses</div>
+                        <div class="big-number" id="spentDisplay">AED 0</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="metric">
+                        <div class="small-label">Remaining</div>
+                        <div class="big-number" id="remainingDisplay">AED 0</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="metric">
+                        <div class="small-label">Savings goals</div>
+                        <div class="big-number" id="goalCountDisplay">0</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BUDGET PLANNER -->
+        <section class="section">
+            <div class="row g-3">
+                <div class="col-lg-7">
+                    <div class="panel">
+                        <span class="eyebrow">01 / BUDGET PLANNER</span>
+                        <h2 class="panel-title mt-3">Plan your month.</h2>
+                        <p class="muted small mb-4">Set an income and decide how much you want to allocate.</p>
+
+                        <form id="budgetForm">
+                            <div class="mb-3">
+                                <label for="incomeInput">Monthly income (AED)</label>
+                                <input id="incomeInput" type="number" min="0" step="0.01" required
+                                    placeholder="e.g. 5000">
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-4">
+                                    <label for="needsPct">Needs %</label>
+                                    <input id="needsPct" type="number" min="0" max="100" value="50" required>
+                                </div>
+                                <div class="col-4">
+                                    <label for="wantsPct">Wants %</label>
+                                    <input id="wantsPct" type="number" min="0" max="100" value="30" required>
+                                </div>
+                                <div class="col-4">
+                                    <label for="savingsPct">Savings %</label>
+                                    <input id="savingsPct" type="number" min="0" max="100" value="20" required>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-3 mb-2 small">
+                                <span class="muted">Allocation total</span>
+                                <strong id="allocationTotal">100%</strong>
+                            </div>
+                            <div class="progress-track mb-3">
+                                <div class="progress-fill" id="allocationBar" style="width:100%"></div>
+                            </div>
+                            <button class="btn-main w-100" type="submit">Save my budget plan ↗</button>
+                        </form>
+                        <div id="budgetBreakdown" class="mt-4"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="panel">
+                        <span class="eyebrow">SMART INSIGHT</span>
+                        <h2 class="panel-title mt-3">Your money at a glance.</h2>
+                        <div class="summary-box mt-4">
+                            <div class="small-label">Share of income spent</div>
+                            <div class="big-number" id="spentPercent">0%</div>
+                            <div class="progress-track mt-3">
+                                <div class="progress-fill" id="spentBar"></div>
+                            </div>
+                        </div>
+                        <div class="tip mt-4">
+                            <strong>Smart tip</strong>
+                            <div id="smartTip" class="mt-1">Record your income and expenses to get useful spending
+                                insights.</div>
+                        </div>
+                        <div class="summary-box mt-3">
+                            <div class="small-label">Your budget target for savings</div>
+                            <div class="big-number" id="plannedSavings">AED 0</div>
+                            <p class="muted small mb-0">A target, not a guaranteed outcome.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPENSE TRACKER -->
+        <section class="section">
+            <div class="row g-3">
+                <div class="col-lg-5">
+                    <div class="panel">
+                        <span class="eyebrow">02 / EXPENSE TRACKER</span>
+                        <h2 class="panel-title mt-3">Add a transaction.</h2>
+                        <p class="muted small mb-4">Record spending and income in one place.</p>
+                        <form id="transactionForm">
+                            <div class="mb-3">
+                                <label for="transactionType">Transaction type</label>
+                                <select id="transactionType">
+                                    <option value="expense">Expense</option>
+                                    <option value="income">Extra income</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="transactionName">Description</label>
+                                <input id="transactionName" maxlength="70" required
+                                    placeholder="e.g. Groceries, allowance">
+                            </div>
+                            <div class="mb-3">
+                                <label for="transactionAmount">Amount (AED)</label>
+                                <input id="transactionAmount" type="number" min="0.01" step="0.01" required
+                                    placeholder="e.g. 45">
+                            </div>
+                            <div class="mb-3">
+                                <label for="transactionCategory">Category</label>
+                                <select id="transactionCategory">
+                                    <option>Food</option>
+                                    <option>Transport</option>
+                                    <option>Shopping</option>
+                                    <option>Education</option>
+                                    <option>Bills</option>
+                                    <option>Health</option>
+                                    <option>Entertainment</option>
+                                    <option>Salary</option>
+                                    <option>Allowance</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="transactionDate">Date</label>
+                                <input id="transactionDate" type="date" required>
+                            </div>
+                            <button class="btn-main w-100" type="submit">+ Add transaction</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="panel">
+                        <span class="eyebrow">YOUR ACTIVITY</span>
+                        <h2 class="panel-title mt-3">Transaction history.</h2>
+                        <div class="row g-2 mt-3">
+                            <div class="col-sm-7">
+                                <input id="transactionSearch" placeholder="Search transactions..."
+                                    aria-label="Search transactions">
+                            </div>
+                            <div class="col-sm-5">
+                                <select id="transactionFilter" aria-label="Filter transactions">
+                                    <option value="all">All transactions</option>
+                                    <option value="expense">Expenses only</option>
+                                    <option value="income">Income only</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="transactionList" class="mt-3"></div>
+                        <button class="btn-soft mt-3" onclick="exportTransactions()">Export transactions CSV ↓</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORY BREAKDOWN -->
+        <section class="section">
+            <div class="panel">
+                <span class="eyebrow">03 / SPENDING BREAKDOWN</span>
+                <h2 class="panel-title mt-3">Where does your money go?</h2>
+                <p class="muted small">See which categories account for your recorded expenses.</p>
+                <div id="categoryBreakdown" class="mt-4"></div>
+            </div>
+        </section>
+
+        <!-- SAVINGS GOALS -->
+        <section class="section">
+            <div class="row g-3">
+                <div class="col-lg-5">
+                    <div class="panel">
+                        <span class="eyebrow">04 / SAVINGS GOALS</span>
+                        <h2 class="panel-title mt-3">Save for something great.</h2>
+                        <form id="goalForm" class="mt-4">
+                            <div class="mb-3">
+                                <label for="goalName">Goal name</label>
+                                <input id="goalName" required maxlength="60" placeholder="e.g. New laptop">
+                            </div>
+                            <div class="mb-3">
+                                <label for="goalTarget">Target amount (AED)</label>
+                                <input id="goalTarget" type="number" min="0.01" step="0.01" required placeholder="3000">
+                            </div>
+                            <div class="mb-3">
+                                <label for="goalSaved">Already saved (AED)</label>
+                                <input id="goalSaved" type="number" min="0" step="0.01" value="0" required>
+                            </div>
+                            <button class="btn-main w-100" type="submit">+ Create savings goal</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="panel">
+                        <span class="eyebrow">YOUR PROGRESS</span>
+                        <h2 class="panel-title mt-3">Every step counts.</h2>
+                        <div id="goalList"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RECURRING PAYMENTS -->
+        <section class="section">
+            <div class="row g-3">
+                <div class="col-lg-5">
+                    <div class="panel">
+                        <span class="eyebrow">05 / RECURRING PAYMENTS</span>
+                        <h2 class="panel-title mt-3">Plan regular expenses.</h2>
+                        <p class="muted small">Track subscriptions, bills, or other regular payments.</p>
+                        <form id="recurringForm" class="mt-3">
+                            <div class="mb-3">
+                                <label for="recurringName">Payment name</label>
+                                <input id="recurringName" required maxlength="60"
+                                    placeholder="e.g. Monthly subscription">
+                            </div>
+                            <div class="mb-3">
+                                <label for="recurringAmount">Amount (AED)</label>
+                                <input id="recurringAmount" type="number" min="0.01" step="0.01" required
+                                    placeholder="e.g. 30">
+                            </div>
+                            <div class="mb-3">
+                                <label for="recurringFrequency">Frequency</label>
+                                <select id="recurringFrequency">
+                                    <option>Weekly</option>
+                                    <option selected>Monthly</option>
+                                    <option>Yearly</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="recurringNextDate">Next payment date</label>
+                                <input id="recurringNextDate" type="date" required>
+                            </div>
+                            <button class="btn-main w-100" type="submit">+ Add recurring payment</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="panel">
+                        <span class="eyebrow">UPCOMING</span>
+                        <h2 class="panel-title mt-3">Regular payment list.</h2>
+                        <div id="recurringList"></div>
+                        <div class="summary-box mt-3">
+                            <div class="small-label">Estimated monthly equivalent</div>
+                            <div class="big-number" id="recurringMonthly">AED 0</div>
+                            <p class="muted small mb-0">An estimate based on the frequency you selected.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIRTUAL INVESTMENTS -->
+        <section class="section">
+            <div class="row g-3">
+                <div class="col-lg-5">
+                    <div class="panel">
+                        <span class="eyebrow">06 / VIRTUAL PORTFOLIO</span>
+                        <h2 class="panel-title mt-3">Practise investment tracking.</h2>
+                        <p class="muted small">Enter hypothetical values to learn how gains and losses work.</p>
+                        <form id="investmentForm" class="mt-3">
+                            <div class="mb-3">
+                                <label for="investmentName">Investment label</label>
+                                <input id="investmentName" required maxlength="60" placeholder="e.g. Practice Fund">
+                            </div>
+                            <div class="mb-3">
+                                <label for="investmentStarting">Starting value (AED)</label>
+                                <input id="investmentStarting" type="number" min="0.01" step="0.01" required
+                                    placeholder="1000">
+                            </div>
+                            <div class="mb-3">
+                                <label for="investmentCurrent">Current value (AED)</label>
+                                <input id="investmentCurrent" type="number" min="0" step="0.01" required
+                                    placeholder="1080">
+                            </div>
+                            <button class="btn-main w-100" type="submit">+ Add virtual investment</button>
+                        </form>
+                        <p class="muted mt-3 mb-0" style="font-size:11px;line-height:1.7">
+                            Educational only. No real trades, live prices, or financial recommendations.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="panel">
+                        <span class="eyebrow">PORTFOLIO OVERVIEW</span>
+                        <h2 class="panel-title mt-3">Your practice portfolio.</h2>
+                        <div class="summary-box mt-3">
+                            <div class="small-label">Total hypothetical change</div>
+                            <div class="big-number" id="portfolioChange">AED 0</div>
+                            <div class="muted small" id="portfolioPercent">0% overall</div>
+                        </div>
+                        <div id="investmentList" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DATA AND SETTINGS -->
+        <section class="section">
+            <div class="panel">
+                <span class="eyebrow">07 / YOUR ACCOUNT</span>
+                <h2 class="panel-title mt-3">Your data, your control.</h2>
+                <p class="muted small">Export a backup or reset the data saved for this account in this browser.</p>
+                <div class="d-flex flex-wrap gap-2 mt-3">
+                    <button class="btn-main" onclick="exportBackup()">Download full backup ↓</button>
+                    <button class="btn-soft" onclick="exportTransactions()">Download transactions CSV</button>
+                    <button class="btn-danger-soft" onclick="clearTransactions()">Clear transactions</button>
+                    <button class="btn-danger-soft" onclick="resetAccountData()">Reset account data</button>
+                </div>
+                <div class="tip mt-4">
+                    <strong>Privacy note</strong><br>
+                    This prototype stores data in your browser. Clearing browser storage may delete it. It does not sync
+                    between devices.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer" class="hidden">
+        <div class="container-main d-flex flex-wrap justify-content-between gap-2">
+            <span>© 2026 SmartSpend</span>
+            <span>Plan thoughtfully. Spend intentionally.</span>
+        </div>
+    </footer>
+
+    <div id="notice" role="status" aria-live="polite"></div>
+
+    <script>
+        "use strict";
+
+        const $ = id => document.getElementById(id);
+        const USERS_KEY = "smartSpendDemoUsers";
+        const SESSION_KEY = "smartSpendDemoSession";
+        const THEME_KEY = "smartSpendTheme";
+        let authMode = "login";
+        let state = blankState();
+        let noticeTimer;
+
+        function blankState() {
+            return {
+                income: 0,
+                needsPct: 50,
+                wantsPct: 30,
+                savingsPct: 20,
+                transactions: [],
+                goals: [],
+                recurring: [],
+                investments: []
+            };
+        }
+
+        function money(value) {
+            return new Intl.NumberFormat("en-AE", {
+                style: "currency",
+                currency: "AED",
+                maximumFractionDigits: 2
+            }).format(Number(value) || 0);
+        }
+
+        function escapeHTML(value) {
+            return String(value).replace(/[&<>"']/g, ch => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;",
+                '"': "&quot;", "'": "&#39;"
+            }[ch]));
+        }
+
+        function makeId() {
+            return window.crypto && crypto.randomUUID
+                ? crypto.randomUUID()
+                : String(Date.now()) + Math.random().toString(16).slice(2);
+        }
+
+        function notify(message) {
+            $("notice").textContent = message;
+            $("notice").style.display = "block";
+            clearTimeout(noticeTimer);
+            noticeTimer = setTimeout(() => $("notice").style.display = "none", 2600);
+        }
+
+        function getUsers() {
+            try {
+                const data = JSON.parse(localStorage.getItem(USERS_KEY) || "{}");
+                return data && typeof data === "object" ? data : {};
+            } catch {
+                return {};
+            }
+        }
+
+        function saveUsers(users) {
+            localStorage.setItem(USERS_KEY, JSON.stringify(users));
+        }
+
+        function userDataKey(email) {
+            return "smartSpendData_" + email;
+        }
+
+        function saveState() {
+            const session = localStorage.getItem(SESSION_KEY);
+            if (!session) return;
+
+            try {
+                localStorage.setItem(userDataKey(session), JSON.stringify(state));
+            } catch {
+                notify("Could not save data. Check your browser storage.");
+            }
+        }
+
+        function loadState(email) {
+            try {
+                const saved = JSON.parse(localStorage.getItem(userDataKey(email)) || "null");
+                if (saved && typeof saved === "object") {
+                    const base = blankState();
+                    state = {
+                        ...base,
+                        ...saved,
+                        transactions: Array.isArray(saved.transactions) ? saved.transactions : [],
+                        goals: Array.isArray(saved.goals) ? saved.goals : [],
+                        recurring: Array.isArray(saved.recurring) ? saved.recurring : [],
+                        investments: Array.isArray(saved.investments) ? saved.investments : []
+                    };
+                } else {
+                    state = blankState();
+                }
+            } catch {
+                state = blankState();
+            }
+        }
+
+        function applyTheme(theme) {
+            document.body.classList.toggle("light", theme === "light");
+            $("themeBtn").textContent = theme === "light" ? "🌙 Dark" : "☀️ Light";
+            try {
+                localStorage.setItem(THEME_KEY, theme);
+            } catch { }
+        }
+
+        function toggleTheme() {
+            const next = document.body.classList.contains("light") ? "dark" : "light";
+            applyTheme(next);
+        }
+
+        function setAuthMode(mode) {
+            authMode = mode;
+            const signup = mode === "signup";
+
+            $("loginTab").classList.toggle("active", !signup);
+            $("signupTab").classList.toggle("active", signup);
+            $("nameField").classList.toggle("hidden", !signup);
+            $("confirmField").classList.toggle("hidden", !signup);
+            $("fullName").required = signup;
+            $("confirmPassword").required = signup;
+            $("authSubmit").textContent = signup ? "Create my account →" : "Log in to SmartSpend →";
+            $("password").autocomplete = signup ? "new-password" : "current-password";
+        }
+
+        async function hashPassword(password) {
+            // This hash is for a local demo only, not production authentication.
+            if (window.crypto && crypto.subtle) {
+                const bytes = new TextEncoder().encode(password);
+                const digest = await crypto.subtle.digest("SHA-256", bytes);
+                return Array.from(new Uint8Array(digest))
+                    .map(byte => byte.toString(16).padStart(2, "0")).join("");
+            }
+            throw new Error("Password hashing is unavailable in this browser context. Open this page using localhost or a secure website.");
+        }
+
+        $("authForm").addEventListener("submit", async event => {
+            event.preventDefault();
+
+            const email = $("email").value.trim().toLowerCase();
+            const password = $("password").value;
+            const users = getUsers();
+
+            if (!email || !password) {
+                notify("Enter your email and password.");
+                return;
+            }
+
+            try {
+                const passwordHash = await hashPassword(password);
+
+                if (authMode === "signup") {
+                    const name = $("fullName").value.trim();
+                    const confirm = $("confirmPassword").value;
+
+                    if (!name) return notify("Enter your name.");
+                    if (password.length < 8) return notify("Use at least 8 characters for your password.");
+                    if (password !== confirm) return notify("Your passwords do not match.");
+                    if (users[email]) return notify("An account with this email already exists.");
+
+                    users[email] = { name, passwordHash };
+                    saveUsers(users);
+                    localStorage.setItem(SESSION_KEY, email);
+                    loadState(email);
+                    saveState();
+                    showApp(name);
+                    $("authForm").reset();
+                    notify("Your demo account is ready!");
+                } else {
+                    const user = users[email];
+
+                    if (!user || user.passwordHash !== passwordHash) {
+                        return notify("Email or password is incorrect.");
+                    }
+
+                    localStorage.setItem(SESSION_KEY, email);
+                    loadState(email);
+                    showApp(user.name || "there");
+                    $("authForm").reset();
+                    notify("Welcome back!");
+                }
+            } catch (error) {
+                notify(error.message || "Could not complete sign-in.");
+            }
+        });
+
+        function showApp(name) {
+            $("authScreen").classList.add("hidden");
+            $("appScreen").classList.remove("hidden");
+            $("footer").classList.remove("hidden");
+            $("logoutBtn").classList.remove("hidden");
+            $("welcomeTitle").innerHTML =
+                "Welcome back,<br><span class='gradient'>" + escapeHTML(name) + ".</span>";
+            $("incomeInput").value = state.income || "";
+            $("needsPct").value = state.needsPct;
+            $("wantsPct").value = state.wantsPct;
+            $("savingsPct").value = state.savingsPct;
+            $("transactionDate").value = new Date().toISOString().slice(0, 10);
+            $("recurringNextDate").value = new Date().toISOString().slice(0, 10);
+            renderAll();
+        }
+
+        function logout() {
+            localStorage.removeItem(SESSION_KEY);
+            state = blankState();
+            $("appScreen").classList.add("hidden");
+            $("footer").classList.add("hidden");
+            $("authScreen").classList.remove("hidden");
+            $("logoutBtn").classList.add("hidden");
+            setAuthMode("login");
+            notify("You have logged out.");
+        }
+
+        function sumExpenses() {
+            return state.transactions
+                .filter(item => item.type === "expense")
+                .reduce((sum, item) => sum + Number(item.amount || 0), 0);
+        }
+
+        function sumExtraIncome() {
+            return state.transactions
+                .filter(item => item.type === "income")
+                .reduce((sum, item) => sum + Number(item.amount || 0), 0);
+        }
+
+        function effectiveIncome() {
+            return Number(state.income || 0) + sumExtraIncome();
+        }
+
+        $("budgetForm").addEventListener("submit", event => {
+            event.preventDefault();
+
+            const income = Number($("incomeInput").value);
+            const needs = Number($("needsPct").value);
+            const wants = Number($("wantsPct").value);
+            const savings = Number($("savingsPct").value);
+            const total = needs + wants + savings;
+
+            if (!Number.isFinite(income) || income < 0 ||
+                ![needs, wants, savings].every(n => Number.isFinite(n) && n >= 0 && n <= 100)) {
+                return notify("Enter valid income and percentages from 0 to 100.");
+            }
+
+            if (Math.abs(total - 100) > 0.001) {
+                $("allocationTotal").textContent = total + "%";
+                $("allocationBar").style.width = Math.min(total, 100) + "%";
+                return notify("Your percentages must add up to 100%.");
+            }
+
+            state.income = income;
+            state.needsPct = needs;
+            state.wantsPct = wants;
+            state.savingsPct = savings;
+            saveState();
+            renderAll();
+            notify("Budget plan saved!");
+        });
+
+        ["needsPct", "wantsPct", "savingsPct"].forEach(id => {
+            $(id).addEventListener("input", () => {
+                const total = ["needsPct", "wantsPct", "savingsPct"]
+                    .reduce((sum, key) => sum + (Number($(key).value) || 0), 0);
+                $("allocationTotal").textContent = total + "%";
+                $("allocationBar").style.width = Math.min(total, 100) + "%";
+            });
+        });
+
+        $("transactionForm").addEventListener("submit", event => {
+            event.preventDefault();
+
+            const name = $("transactionName").value.trim();
+            const amount = Number($("transactionAmount").value);
+            const type = $("transactionType").value;
+            const category = $("transactionCategory").value;
+            const date = $("transactionDate").value;
+
+            if (!name || !Number.isFinite(amount) || amount <= 0 || !date) {
+                return notify("Enter a description, date, and valid amount.");
+            }
+
+            state.transactions.unshift({
+                id: makeId(), name, amount, type, category, date
+            });
+
+            saveState();
+            renderAll();
+            $("transactionForm").reset();
+            $("transactionDate").value = new Date().toISOString().slice(0, 10);
+            notify("Transaction added!");
+        });
+
+        $("transactionSearch").addEventListener("input", renderTransactions);
+        $("transactionFilter").addEventListener("change", renderTransactions);
+
+        function deleteTransaction(id) {
+            state.transactions = state.transactions.filter(item => item.id !== id);
+            saveState();
+            renderAll();
+            notify("Transaction deleted.");
+        }
+
+        function renderTransactions() {
+            const query = $("transactionSearch").value.trim().toLowerCase();
+            const filter = $("transactionFilter").value;
+
+            const filtered = state.transactions.filter(item => {
+                const matchesType = filter === "all" || item.type === filter;
+                const matchesSearch = [item.name, item.category, item.date]
+                    .some(value => String(value).toLowerCase().includes(query));
+                return matchesType && matchesSearch;
+            });
+
+            if (!filtered.length) {
+                $("transactionList").innerHTML =
+                    '<div class="empty">No matching transactions yet.</div>';
+                return;
+            }
+
+            $("transactionList").innerHTML = filtered.map(item => `
+    <div class="entry">
+      <div>
+        <div class="entry-title">${escapeHTML(item.name)}</div>
+        <div class="entry-meta">${escapeHTML(item.category)} · ${escapeHTML(item.date)}</div>
+        <span class="pill mt-2">${item.type === "income" ? "Income" : "Expense"}</span>
+      </div>
+      <div class="entry-right">
+        <strong class="${item.type === "income" ? "positive" : "negative"}">
+          ${item.type === "income" ? "+" : "−"}${money(item.amount)}
+        </strong><br>
+        <button class="btn-danger-soft mt-2" onclick="deleteTransaction('${escapeHTML(item.id)}')">Delete</button>
+      </div>
+    </div>
+  `).join("");
+        }
+
+        function renderBudget() {
+            const income = Number(state.income) || 0;
+            const parts = [
+                { name: "Needs", pct: Number(state.needsPct) || 0 },
+                { name: "Wants", pct: Number(state.wantsPct) || 0 },
+                { name: "Savings", pct: Number(state.savingsPct) || 0 }
+            ];
+
+            const total = parts.reduce((sum, item) => sum + item.pct, 0);
+            $("allocationTotal").textContent = total + "%";
+            $("allocationBar").style.width = Math.min(total, 100) + "%";
+
+            $("budgetBreakdown").innerHTML = parts.map(part => `
+    <div class="mb-3">
+      <div class="d-flex justify-content-between gap-2 mb-2">
+        <span>${part.name} <span class="muted small">${part.pct}%</span></span>
+        <strong>${money(income * part.pct / 100)}</strong>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" style="width:${part.pct}%"></div>
+      </div>
+    </div>
+  `).join("");
+
+            $("plannedSavings").textContent = money(income * (Number(state.savingsPct) || 0) / 100);
+        }
+
+        function renderDashboard() {
+            const income = effectiveIncome();
+            const expenses = sumExpenses();
+            const remaining = income - expenses;
+            const percent = income > 0 ? expenses / income * 100 : 0;
+
+            $("incomeDisplay").textContent = money(income);
+            $("spentDisplay").textContent = money(expenses);
+            $("remainingDisplay").textContent = money(remaining);
+            $("remainingDisplay").className =
+                "big-number " + (remaining < 0 ? "negative" : "positive");
+            $("goalCountDisplay").textContent = state.goals.length;
+            $("spentPercent").textContent = Math.round(percent) + "%";
+            $("spentBar").style.width = Math.min(Math.max(percent, 0), 100) + "%";
+
+            if (income <= 0) {
+                $("smartTip").textContent =
+                    "Start by entering your monthly income and recording your transactions.";
+            } else if (remaining < 0) {
+                $("smartTip").textContent =
+                    "Your recorded expenses exceed your income. Review your spending and upcoming payments.";
+            } else if (percent >= 80) {
+                $("smartTip").textContent =
+                    "You've used a large share of your recorded income. Check your remaining budget before spending more.";
+            } else {
+                $("smartTip").textContent =
+                    "Keep updating your transactions to see how your spending compares with your plan.";
+            }
+        }
+
+        function renderCategories() {
+            const totals = {};
+
+            state.transactions.filter(item => item.type === "expense").forEach(item => {
+                totals[item.category] = (totals[item.category] || 0) + Number(item.amount);
+            });
+
+            const items = Object.entries(totals).sort((a, b) => b[1] - a[1]);
+            const total = sumExpenses();
+
+            if (!items.length) {
+                $("categoryBreakdown").innerHTML =
+                    '<div class="empty">Add expenses to see your category breakdown.</div>';
+                return;
+            }
+
+            $("categoryBreakdown").innerHTML = items.map(([name, amount]) => {
+                const pct = total ? amount / total * 100 : 0;
+                return `
+      <div class="mb-4">
+        <div class="d-flex justify-content-between gap-3 mb-2">
+          <span class="entry-title">${escapeHTML(name)}</span>
+          <span>${money(amount)} <span class="muted small">(${Math.round(pct)}%)</span></span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" style="width:${pct}%"></div>
+        </div>
+      </div>
+    `;
+            }).join("");
+        }
+
+        $("goalForm").addEventListener("submit", event => {
+            event.preventDefault();
+
+            const name = $("goalName").value.trim();
+            const target = Number($("goalTarget").value);
+            const saved = Number($("goalSaved").value);
+
+            if (!name || !Number.isFinite(target) || target <= 0 ||
+                !Number.isFinite(saved) || saved < 0) {
+                return notify("Enter a goal and valid amounts.");
+            }
+
+            state.goals.push({ id: makeId(), name, target, saved });
+            saveState();
+            renderAll();
+            event.target.reset();
+            $("goalSaved").value = 0;
+            notify("Savings goal created!");
+        });
+
+        function addGoalSavings(id) {
+            const goal = state.goals.find(item => item.id === id);
+            if (!goal) return;
+
+            const answer = prompt("How much additional money have you saved (AED)?");
+            if (answer === null) return;
+
+            const amount = Number(answer);
+            if (!Number.isFinite(amount) || amount <= 0) {
+                return notify("Enter an amount greater than zero.");
+            }
+
+            goal.saved += amount;
+            saveState();
+            renderAll();
+            notify("Savings progress updated!");
+        }
+
+        function deleteGoal(id) {
+            state.goals = state.goals.filter(item => item.id !== id);
+            saveState();
+            renderAll();
+            notify("Goal removed.");
+        }
+
+        function renderGoals() {
+            if (!state.goals.length) {
+                $("goalList").innerHTML = '<div class="empty">Your savings goals will appear here.</div>';
+                return;
+            }
+
+            $("goalList").innerHTML = state.goals.map(goal => {
+                const pct = Math.min(goal.saved / goal.target * 100, 100);
+                return `
+      <div class="goal-item">
+        <div class="goal-top">
+          <div>
+            <strong>${escapeHTML(goal.name)}</strong>
+            <div class="entry-meta">${money(goal.saved)} saved of ${money(goal.target)}</div>
+          </div>
+          <strong>${Math.round(pct)}%</strong>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" style="width:${pct}%"></div>
+        </div>
+        <div class="d-flex gap-2 mt-3 flex-wrap">
+          <button class="btn-soft" onclick="addGoalSavings('${escapeHTML(goal.id)}')">+ Add savings</button>
+          <button class="btn-danger-soft" onclick="deleteGoal('${escapeHTML(goal.id)}')">Remove</button>
+        </div>
+      </div>
+    `;
+            }).join("");
+        }
+
+        $("recurringForm").addEventListener("submit", event => {
+            event.preventDefault();
+
+            const name = $("recurringName").value.trim();
+            const amount = Number($("recurringAmount").value);
+            const frequency = $("recurringFrequency").value;
+            const date = $("recurringNextDate").value;
+
+            if (!name || !Number.isFinite(amount) || amount <= 0 || !date) {
+                return notify("Enter a payment name, valid amount, and date.");
+            }
+
+            state.recurring.push({ id: makeId(), name, amount, frequency, date });
+            saveState();
+            renderAll();
+            event.target.reset();
+            $("recurringNextDate").value = new Date().toISOString().slice(0, 10);
+            notify("Recurring payment added!");
+        });
+
+        function deleteRecurring(id) {
+            state.recurring = state.recurring.filter(item => item.id !== id);
+            saveState();
+            renderAll();
+            notify("Recurring payment removed.");
+        }
+
+        function renderRecurring() {
+            if (!state.recurring.length) {
+                $("recurringList").innerHTML = '<div class="empty">No recurring payments added yet.</div>';
+            } else {
+                const sorted = [...state.recurring].sort((a, b) => a.date.localeCompare(b.date));
+                $("recurringList").innerHTML = sorted.map(item => `
+      <div class="entry">
+        <div>
+          <div class="entry-title">${escapeHTML(item.name)}</div>
+          <div class="entry-meta">${escapeHTML(item.frequency)} · Next: ${escapeHTML(item.date)}</div>
+        </div>
+        <div class="entry-right">
+          <strong>${money(item.amount)}</strong><br>
+          <button class="btn-danger-soft mt-2" onclick="deleteRecurring('${escapeHTML(item.id)}')">Remove</button>
+        </div>
+      </div>
+    `).join("");
+            }
+
+            const monthly = state.recurring.reduce((sum, item) => {
+                const factor = item.frequency === "Weekly" ? 52 / 12 :
+                    item.frequency === "Yearly" ? 1 / 12 : 1;
+                return sum + Number(item.amount) * factor;
+            }, 0);
+
+            $("recurringMonthly").textContent = money(monthly);
+        }
+
+        $("investmentForm").addEventListener("submit", event => {
+            event.preventDefault();
+
+            const name = $("investmentName").value.trim();
+            const starting = Number($("investmentStarting").value);
+            const current = Number($("investmentCurrent").value);
+
+            if (!name || !Number.isFinite(starting) || starting <= 0 ||
+                !Number.isFinite(current) || current < 0) {
+                return notify("Enter a label and valid investment values.");
+            }
+
+            state.investments.push({ id: makeId(), name, starting, current });
+            saveState();
+            renderAll();
+            event.target.reset();
+            notify("Virtual investment added!");
+        });
+
+        function deleteInvestment(id) {
+            state.investments = state.investments.filter(item => item.id !== id);
+            saveState();
+            renderAll();
+            notify("Virtual investment removed.");
+        }
+
+        function renderInvestments() {
+            const startingTotal = state.investments.reduce((s, i) => s + Number(i.starting), 0);
+            const currentTotal = state.investments.reduce((s, i) => s + Number(i.current), 0);
+            const change = currentTotal - startingTotal;
+            const pct = startingTotal ? change / startingTotal * 100 : 0;
+
+            $("portfolioChange").textContent = (change >= 0 ? "+" : "−") + money(Math.abs(change));
+            $("portfolioChange").className = "big-number " + (change >= 0 ? "positive" : "negative");
+            $("portfolioPercent").textContent = (pct >= 0 ? "+" : "") + pct.toFixed(2) + "% overall";
+
+            if (!state.investments.length) {
+                $("investmentList").innerHTML =
+                    '<div class="empty">Add a virtual investment to start tracking.</div>';
+                return;
+            }
+
+            $("investmentList").innerHTML = state.investments.map(item => {
+                const change = item.current - item.starting;
+                const pct = change / item.starting * 100;
+                return `
+      <div class="entry">
+        <div>
+          <div class="entry-title">${escapeHTML(item.name)}</div>
+          <div class="entry-meta">Start: ${money(item.starting)} · Current: ${money(item.current)}</div>
+        </div>
+        <div class="entry-right">
+          <strong class="${change >= 0 ? "positive" : "negative"}">
+            ${change >= 0 ? "+" : "−"}${money(Math.abs(change))}
+          </strong>
+          <div class="entry-meta">${pct >= 0 ? "+" : ""}${pct.toFixed(2)}%</div>
+          <button class="btn-danger-soft mt-2" onclick="deleteInvestment('${escapeHTML(item.id)}')">Remove</button>
+        </div>
+      </div>
+    `;
+            }).join("");
+        }
+
+        function downloadFile(content, filename, type) {
+            const blob = new Blob([content], { type });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }
+
+        function exportBackup() {
+            downloadFile(JSON.stringify(state, null, 2), "smartspend-backup.json", "application/json");
+            notify("Backup downloaded.");
+        }
+
+        function exportTransactions() {
+            const rows = [["Date", "Type", "Description", "Category", "Amount AED"]];
+            state.transactions.forEach(item => {
+                rows.push([item.date, item.type, item.name, item.category, item.amount]);
+            });
+
+            const csv = rows.map(row =>
+                row.map(value => '"' + String(value).replace(/"/g, '""') + '"').join(",")
+            ).join("\r\n");
+
+            downloadFile(csv, "smartspend-transactions.csv", "text/csv;charset=utf-8");
+            notify("Transaction report downloaded.");
+        }
+
+        function clearTransactions() {
+            if (!state.transactions.length) return notify("There are no transactions to clear.");
+            if (!confirm("Delete all transactions for this account?")) return;
+
+            state.transactions = [];
+            saveState();
+            renderAll();
+            notify("Transactions cleared.");
+        }
+
+        function resetAccountData() {
+            if (!confirm("Reset all budget, transaction, goal, recurring payment, and virtual investment data for this account?")) return;
+
+            state = blankState();
+            saveState();
+            $("incomeInput").value = "";
+            $("needsPct").value = 50;
+            $("wantsPct").value = 30;
+            $("savingsPct").value = 20;
+            renderAll();
+            notify("Account data reset.");
+        }
+
+        function renderAll() {
+            renderDashboard();
+            renderBudget();
+            renderTransactions();
+            renderCategories();
+            renderGoals();
+            renderRecurring();
+            renderInvestments();
+        }
+
+        function init() {
+            let theme = "dark";
+            try {
+                theme = localStorage.getItem(THEME_KEY) || "dark";
+            } catch { }
+            applyTheme(theme);
+
+            const session = localStorage.getItem(SESSION_KEY);
+            if (session) {
+                const user = getUsers()[session];
+                if (user) {
+                    loadState(session);
+                    showApp(user.name || "there");
+                    return;
+                }
+                localStorage.removeItem(SESSION_KEY);
+            }
+
+            $("authScreen").classList.remove("hidden");
+            $("appScreen").classList.add("hidden");
+            $("footer").classList.add("hidden");
+            $("logoutBtn").classList.add("hidden");
+        }
+
+        setAuthMode("login");
+        init();
+    </script>
+</body>
+
+</html>
