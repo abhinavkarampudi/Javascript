@@ -2,8 +2,28 @@
 <html lang="en">
 
 <head>
-
     <title>My Delivery Tracker</title>
+    <style>
+        #json-text {
+            color: black;
+        }
+
+        #loaded-item {
+            color: chocolate;
+        }
+
+        #loaded-prize {
+            color: tomato;
+        }
+
+        #status {
+            color: blueviolet;
+        }
+
+        #total-value {
+            color: coral;
+        }
+    </style>
 </head>
 
 <body>
@@ -25,11 +45,17 @@
     <div>
         Result:<span id="result"></span>
     </div>
+    <div>
+        Total value<span id="total-value"></span>
+    </div>
+    <button onclick="displayOrder()">Click me</button>
+
     <script>
         let order = {
             item: "Pizza",
             prize: 5,
             shop: "My snack shop",
+            quantity: 3,
         };
         function saveOrder() {
             let jsontext = JSON.stringify(order);
@@ -39,7 +65,24 @@
             document.getElementById("loaded-prize").innerHTML = loadedorder.prize;
 
         }
-        function startDelivery() {
+        function displayOrder() {
+            let jsontext = JSON.stringify(order);
+            let loadedorder = JSON.parse(jsontext);
+            document.getElementById("total-value").innerHTML = loadedorder.prize * loadedorder.quantity;
+        }
+        async function startDelivery() {
+            document.getElementById("result").innerHTML = "";
+            document.getElementById("status").innerHTML = "Order Recieved";
+            setTimeout(function () {
+                document.getElementById("status").innerHTML = "Kitchen is Preparing";
+            }, 1000);
+            await delay(10000);
+            document.getElementById("status").innerHTML = "Out for Delivery";
+        }
+        function delay(ms) {
+            return new Promise(function (resolve) {
+                setTimeout(resolve, ms)
+            });
 
         }
     </script>
