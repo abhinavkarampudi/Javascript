@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>School Event Data Viewer</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f5ff;
+            color: #222;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .event-card {
+            max-width: 650px;
+            background: white;
+            border: 2px solid #93b4ff;
+            border-radius: 15px;
+            margin: 25px auto;
+            padding: 25px;
+            box-shadow: 0 5px 15px #d1ddf5;
+        }
+
+        h1 {
+            color: #2457c5;
+        }
+
+        h2 {
+            color: #3158a6;
+            font-size: 20px;
+        }
+
+        button {
+            background: #3267d5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 22px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #214ba8;
+        }
+
+        button:disabled {
+            background: #94a3b8;
+            cursor: wait;
+        }
+
+        .info-box {
+            background: #f7f9ff;
+            border: 1px solid #d6e2ff;
+            border-radius: 10px;
+            margin-top: 20px;
+            padding: 15px;
+            text-align: left;
+            line-height: 1.8;
+        }
+
+        #status {
+            color: #2563a6;
+            font-weight: bold;
+        }
+
+        #eventDetails {
+            line-height: 2;
+        }
+
+        #jsonOutput {
+            background: #1e293b;
+            color: #bfdbfe;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .label {
+            color: #2457c5;
+            font-weight: bold;
+        }
+
+        .badge {
+            color: #15803d;
+            background: #dcfce7;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .event-card {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="event-card">
+
+        <h1>🏫 School Event Data Viewer</h1>
+
+        <p>
+            Click the button to load school event details using
+            JSON and asynchronous JavaScript.
+        </p>
+
+        <button id="loadButton" onclick="showSchoolEvent()">
+            Load Event Details
+        </button>
+
+        <div class="info-box">
+            <h2>Loading Status</h2>
+            <p id="status">Waiting to load event data...</p>
+        </div>
+
+        <div class="info-box">
+            <h2>Event Details</h2>
+            <p id="eventDetails">
+                Event information will appear here.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <h2>JSON Text Output</h2>
+            <pre id="jsonOutput">JSON data will appear here.</pre>
+        </div>
+
+    </div>
+
+    <script>
+        // Callback function
+        function showLoadingMessage(message) {
+            document.getElementById("status").textContent = message;
+        }
+
+        // Promise in JavaScript
+        function fetchSchoolEventData(callback) {
+            callback("Loading event data... Please wait.");
+
+            return new Promise(function (resolve) {
+                // Asynchronous JavaScript using setTimeout()
+                setTimeout(function () {
+
+                    // JSON data
+                    let schoolEvent = {
+                        eventName: "Annual Science Fair",
+                        date: "25 August 2026",
+                        time: "10:00 AM",
+                        venue: "School Auditorium",
+                        coordinator: "Ms. Priya",
+                        participants: 120,
+                        isRegistrationOpen: true
+                    };
+
+                    resolve(schoolEvent);
+                }, 2000);
+            });
+        }
+
+        // async/await in JavaScript
+        async function showSchoolEvent() {
+            let button = document.getElementById("loadButton");
+
+            if (button.disabled) return;
+
+            button.disabled = true;
+            button.textContent = "Loading...";
+
+            try {
+                let eventData = await fetchSchoolEventData(
+                    showLoadingMessage
+                );
+
+                document.getElementById("status").textContent =
+                    "Event data loaded successfully!";
+
+                // JSON.stringify()
+                let jsonText = JSON.stringify(eventData, null, 2);
+
+                // JSON.parse()
+                let parsedEvent = JSON.parse(jsonText);
+
+                // Display event details
+                let eventMessage =
+                    '<span class="label">Event Name:</span> ' +
+                    parsedEvent.eventName + "<br>";
+
+                eventMessage +=
+                    '<span class="label">Date:</span> ' +
+                    parsedEvent.date + "<br>";
+
+                eventMessage +=
+                    '<span class="label">Time:</span> ' +
+                    parsedEvent.time + "<br>";
+
+                eventMessage +=
+                    '<span class="label">Venue:</span> ' +
+                    parsedEvent.venue + "<br>";
+
+                eventMessage +=
+                    '<span class="label">Coordinator:</span> ' +
+                    parsedEvent.coordinator + "<br>";
+
+                eventMessage +=
+                    '<span class="label">Participants:</span> ' +
+                    parsedEvent.participants + "<br>";
+
+                if (parsedEvent.isRegistrationOpen === true) {
+                    eventMessage +=
+                        '<span class="label">Registration:</span> ' +
+                        '<span class="badge">Open</span>';
+                } else {
+                    eventMessage +=
+                        '<span class="label">Registration:</span> Closed';
+                }
+
+                document.getElementById("eventDetails").innerHTML =
+                    eventMessage;
+
+                document.getElementById("jsonOutput").textContent =
+                    jsonText;
+
+                button.textContent = "Event Loaded";
+
+            } catch (error) {
+                document.getElementById("status").textContent =
+                    "Unable to load event data.";
+
+                console.error(error);
+                button.textContent = "Try Again";
+
+            } finally {
+                button.disabled = false;
+            }
+        }
+    </script>
+</body>
+
+</html>
