@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title></title>
+    <style>
+        #guess {
+            width: 100px;
+            height: 20px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Lucky Draw</h1>
+    <p>Enter Your Name And Guess A Number To Win</p>
+    <input type="text" id="name" placeholder="Your Name" required>
+    <br>
+    <p id="msg-name"></p>
+    <input type="number" id="guess" placeholder="Guess a number(1-5)" min="1" max="5" required>
+    <button onclick="checkForm()"></button>
+    <p id="result"></p>
+    <p id="timer"></p>
+    <script>
+        setInterval(function () {
+            seconds = seconds + 1;
+            document.getElementById("timer").textContent = "You Have Been Here For " + seconds + " Seconds";
+        }, 1000)
+        function checkForm() {
+            var name = document.getElementById("name").value;
+            var guess = document.getElementById("guess").value;
+            var ok = true;
+            if (name == "") {
+                document.getElementById("msg-name").textContent = "Please Enter Your Name";
+                document.getElementById("msg-name").style.color = "red";
+            }
+        }
+
+    </script>
+</body>
+
+</html>
