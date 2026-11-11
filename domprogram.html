@@ -38,6 +38,8 @@
     <p id="msg-name"></p>
     <input type="number" id="guess" placeholder="Guess a number(1-5)" min="1" max="5" required>
     <p id="msg-guess"></p>
+    <p id="age"></p>
+    <input type="number" id="age" placeholder="Enter your age" required>
     <button onclick="checkForm()" id="click">Try Your Luck</button>
     <p id="result"></p>
     <p id="timer"></p>
@@ -82,6 +84,14 @@
                     document.getElementById("result").textContent = "So closeeeee" + name + " The Lucky Number Was" + lucky + ".Try again";
                     document.getElementById("result").stle.color = "Navy";
                 }
+            }
+            if (age <= "18") {
+                document.getElementById("age").textContent = "You are Eligible to Play";
+                document.getElementById("age").style.color = "green";
+            }
+            else {
+                document.getElementById("age").textContent = "You are Not Eligible to Play";
+                document.getElementById("age").style.color = "red";
             }
         }
 
