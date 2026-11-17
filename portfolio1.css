@@ -1,0 +1,43 @@
+body {
+    background: linear-gradient(135deg, #667eea, #764ba2, #ff758c);
+    color: white;
+    font-family: 'Roboto Slab', serif;
+}
+
+.about {
+    background: linear-gradient(135deg, #ffffff, #e0c3fc);
+    border-radius: 20px;
+    box-shadow: 0 5px 20px #333;
+}
+
+.m-heading {
+    font-family: 'Baloo Tamma 2', cursive;
+    font-size: 35px;
+    font-weight: bold;
+    color: #6a11cb;
+}
+
+.text-orange {
+    color: #ff6b35;
+}
+
+.text-warning {
+    color: #ff6b35 !important;
+}
+
+.about p {
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.btn-outline-warning {
+    border: 2px solid #ff6b35;
+    color: #ff6b35;
+    border-radius: 20px;
+}
+
+.btn-outline-warning:hover {
+    background: #ff6b35;
+    color: white;
+}
